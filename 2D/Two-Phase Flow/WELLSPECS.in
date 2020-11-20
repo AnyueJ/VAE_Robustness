@@ -1,0 +1,8 @@
+WELSPECS
+-- WELL    GROUP     I(TOP)      J(TOP)      BHP-DEPTH      PHASE 
+    INJ1        G1        50            50             1*           WAT /
+    PROD1       G2        10            10             1*           OIL /
+    PROD2       G2        10            90             1*           OIL /
+    PROD3       G2        90            10             1*           OIL /
+    PROD4       G2        90            90             1*           OIL /
+/

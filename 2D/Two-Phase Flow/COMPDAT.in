@@ -1,0 +1,8 @@
+COMPDAT
+-- WELL    I   J   K1--K2   OPEN/SHUT   SAT   CF(CONN FACT)    DIAM    KH    SKIN   NON-DARCY  DIREC 
+    INJ1     2*      1   1     OPEN      1*     1*              0.583   1*     0        0        Z   / (ONLY X,Y, ADN Z FOR DIREC)  
+    PROD1    2*      1   1     OPEN      1*     1*              0.583   1*     0        0        Z   / (ONLY X,Y, ADN Z FOR DIREC)
+    PROD2    2*      1   1     OPEN      1*     1*              0.583   1*     0        0        Z   / (ONLY X,Y, ADN Z FOR DIREC)
+    PROD3    2*      1   1     OPEN      1*     1*              0.583   1*     0        0        Z   / (ONLY X,Y, ADN Z FOR DIREC)
+    PROD4    2*      1   1     OPEN      1*     1*              0.583   1*     0        0        Z   / (ONLY X,Y, ADN Z FOR DIREC)
+/

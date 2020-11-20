@@ -1,0 +1,2 @@
+model_checkpoint_path: "AE16.ckpt"
+all_model_checkpoint_paths: "AE16.ckpt"

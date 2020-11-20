@@ -1,0 +1,357 @@
+
+NOECHO      /  DON'T PRINT INPUT DATE TO *.PRN FILE
+
+RUNSPEC        1-----------------------------------------------------------------
+
+NOECHO
+
+TITLE 
+THIS IS A WATERFLOODING SIMULATION OF A 2-PHASE 45x45x1 RESERVOIR MODEL /
+
+BLACKOIL
+
+DIMENS
+-- NX	 NY    NZ 
+   100   100    1  /
+
+START
+-- DD   MMM   YYYY
+   01   JAN   2000   
+/
+
+WELLDIMS         /  FOR MEMORY ALLOCATION ONLY (OVERESTIMATED)
+-- WELLS      COMPLETIONS     GROUPS     WELLS/GROUP
+    5             200           2            4   
+/
+
+-- UNITS
+
+FIELD           
+
+-- PHASES 
+
+OIL
+WATER
+
+
+-- REQUEST FORMATTED OUTPUT FILES
+FMTOUT
+
+-- REQUEST FORMATTED INPUT FILES
+FMTIN
+
+-- REQUEST ANJOINT BASED GRADIENTS
+FULLIMP
+NORSSPEC
+NOINSPEC
+NONNC
+
+GRID           2-----------------------------------------------------------------
+
+NOECHO
+
+TOPS
+10000*4000 /
+
+DXV
+100*32.808399  /
+
+DYV
+100*32.808399  /
+
+DZ
+10000*32.808399 /
+
+
+-- DEFINE STATIC PROPERTIES 
+EQUALS
+-- ARRAY    VALUE    I1-I2   J1-J2    K1-K2
+   PORO     0.20   / 
+/ 
+
+INCLUDE
+TRUE_RESERVOIR.IN /
+
+COPY 
+-- FROM     TO
+   PERMX   PERMY /
+   PERMX   PERMZ /
+/
+
+MULTIPLY 
+-- ARRAY    MULTIPLIER
+   PERMZ      0.1  /
+/ 
+
+
+-- EXPORT INITIAL PROPERTIES (PERMX, PORO,) TO *. INIT FILE (FOR DISPLAY)
+INIT
+
+-- EXPORT GRID GEOMETRY TO *.GRID OR * .EGRID (FOR DISPLAY)
+-- GRIDFILE
+-- 0 0 /
+
+-- GRID_FILE (OLD FORMAT - SLOW)     EGRID_FILE (NEW FORMAT - FAST)
+--       0                                   1 /
+-- EXPORT PROPERTIES TO *.PRT (PRINT) FILE (ALWAYS ASCII) (CHECK VALUES & MSGS)
+-- RPTGRID
+-- TRANX   /    
+
+
+EDIT           3-----------------------------------------------------------------
+-- THIS IS AN OPTIONAL SECTION (IGNORED HERE)
+
+
+PROPS          4-----------------------------------------------------------------
+NOECHO
+
+-- Brooks-Corey with lamda = 10
+
+SWFN
+0.1   0.00    0.0
+0.2   0.10    0.0
+0.3   0.20    0.0
+0.4   0.30    0.0
+0.5   0.45    0.0
+0.6   0.55    0.0
+0.7   0.65    0.0
+0.8   0.75    0.0
+0.9   0.85    0.0
+1.0   1.00    0.0
+/
+
+--Two phase oil data : two saturation tables
+SOF3
+    .0000  .0000 .0000
+    .1000  .1000 .1000
+    .2000  .2000 .2000
+    .3000  .3000 .3000
+    .4000  .4000 .4000
+    .5000  .5000 .5000
+    .6000  .6000 .6000
+    .7000  .7000 .7000
+    .8000  .8000 .8000
+    .9000  .9000 .9000
+   1.0000 1.0000 1.0000
+/
+
+SGFN
+0.0  .0  .00
+1.0 1.0  .00
+/
+
+--Pressure function data
+
+ROCK
+2800.0  3E-06 /
+
+
+PVTW
+2800   1.00   3E-06   1.0  0.0 /
+
+PVDO
+ 400   1.012    1.17
+ 800   1.009    1.14
+1200   1.005    1.11
+1600   1.001    1.08
+2000   0.996    1.06
+2400   0.990    1.03
+2800   0.988    1.00
+3200   0.985    0.98
+3600   0.980    0.95
+4000   0.975    0.94
+4400   0.970    0.92
+4800   0.965    0.91
+5200   0.960    0.90 
+5600   0.955    0.89
+/
+
+PVDG
+400    5.9   0.013
+800    2.95  0.0135
+1200    1.96  0.014
+1600    1.47  0.0145
+2000    1.18  0.015
+2400    0.98  0.0155
+2800    0.84  0.016
+3200    0.74  0.0165
+3600    0.65  0.017
+4000    0.59  0.0175
+4400    0.54  0.018
+4800    0.49  0.0185
+5200    0.45  0.019
+5600    0.42  0.0195 /
+
+DENSITY
+45.0 62.0 0.7 /
+
+
+-- REGIONS        5-----------------------------------------------------------------
+
+
+-- NONE FOR THIS PROBLEM
+
+SOLUTION       6-----------------------------------------------------------------
+
+NOECHO
+
+--RS 
+--2025*0.0 /
+
+INCLUDE 
+RESTART.IN /
+
+-- EXPORT INITIAL SOLUTIONS AND FLUID-IN-PLACE
+-- FIP=3 - REPORTS FIP IN ALL REGIONS DEFINED BY FIPNUM AND FIPLAYER (*.PRT FILE)
+-- RESTART = 2 - EXPORT INITIAL SOLUTIONS (PRS & SW, AND IN CASE OF GAS: SG) TO RESTART FILE (*.UNRST)
+-- RPTSOL
+-- PRESSURE   SWAT /
+-- RESTART=1 /  
+-- 
+-- RESTART=2 /  
+
+-- OUTSOL
+-- BASIC=2 PRESSURE   SWAT  SGAS /
+
+RPTRST
+BASIC=2/
+
+
+
+SUMMARY        7-----------------------------------------------------------------
+
+-- NOECHO
+
+-- NOMONITO
+
+RPTONLY
+-- SPECIFY THE SUMMARY OF THE DESIRED OUTPUT 
+-- FIELD VECTORS
+FOPR       -- FIELD OIL PROD RATE 
+FWPR       -- FIELD WATER PROD RATE 
+-- FGPR       -- FIELD GAS PROD RATE 
+-- FLPR       -- FIELD LIQUID PROD RATE 
+-- FVPR       -- FIELD RES VOL PROD RATE 
+-- FWIR       -- FIELD WATER INJ RATE 
+-- FVIR       -- FIELD RES VOL INJ RATE 
+-- FAQR       -- FIELD AQUIFER FLUX RATE 
+
+-- TOTAL VECTORS
+FOPT       -- FIELD OIL PROD TOTAL 
+FWPT       -- FIELD WATER PROD TOTAL
+-- FGPT       -- FIELD GAS PROD TOTAL
+-- FLPT       -- FIELD LIQUID PROD TOTAL
+-- FVPT       -- FIELD RES VOL PROD TOTAL
+-- FWIT       -- FIELD WATER INJ TOTAL
+-- FVIT       -- FIELD RES VOL INJ TOTAL
+-- FAQT       -- FIELD AQUIFER FLUX TOTAL
+
+FRPV       -- FIELD RESERVOIR COND. PORE VOLUME
+-- FHPV
+-- FWPV
+-- FOE
+
+
+
+FWCT       -- FIELD WATERCUT TOTAL
+FOIP       -- FIELD OIL IN PLACE
+FWIP       -- WATER IN PLACE
+-- FGIP       -- GAS IN PLACE
+
+-- WELL VECTORS
+WOPR     -- WELL OIL PROD RATE
+/
+WWPR     -- WELL WATER PROD RATE
+/
+-- WGPR     -- WELL GAS PROD RATE 
+-- /
+-- WLPR     -- WELL LIQUID PROD RATEW
+--/
+-- WVPR     -- WELL RES VOL PROD RATE
+-- /
+WWIR     -- WELL WATER INJ RATE
+/
+-- WVIR     -- WELL RES VOL INJ RATE
+-- /
+
+WOPT     -- WELL OIL PROD TOTAL
+/
+WWPT     -- WELL WATER PROD TOTAL
+/
+-- WGPT     -- WELL GAS PROD TOTAL
+-- /
+-- WLPT     -- WELL LIQUID PROD TOTAL
+-- /
+-- WVPT     -- WELL RES VOL PROD TOTAL
+-- /
+WWIT     -- WELL WATER INJ TOTAL
+/
+-- WVIT     -- WELL RES VOL INJ TOTAL
+-- /
+
+
+WWCT     -- WELL WATER CUT
+/
+-- WGOR     -- WELL GOR
+-- /
+WBHP     -- WELL BHP
+/
+
+
+-- PERFORMA -- SIMULATOR PERFORMANCE (NEWTON, LINEAR, CPU)  / NOTE THAT ONLY FIRST 8 CHARACTERS OF THE WORD ARE USED (FORTRAN)
+
+-- DATE     -- EXPORT CALENDAR DATES TO *.RSM FILE AND OTHER SUMMARY FILES
+
+
+SCHEDULE       8-----------------------------------------------------------------
+
+NOECHO
+
+-- SKIPREST  / USE ONLY IF YOU ARE INCLUDING ALL THE TIMESTEP FROM THE BEGINING, IF NOT DELETE ALL PAST TIME STEPS
+
+-- EXPORT SOLUTION AT EACH REPORTING TIME STEP TO RESTART FILE (*.FUNRST)
+
+-- RPTSCHED
+-- PRESSURE   SWAT  SGAS/
+
+
+
+RPTRST
+BASIC=2 PRESSURE SWAT /
+
+
+
+--Request output at each report step
+
+-- RPTSCHED
+-- PRESSURE SOIL SWAT SGAS /
+
+
+-- DRILL WELLS
+INCLUDE
+WELLSPECS.IN
+/
+
+-- COMPLETE WELLS
+INCLUDE 
+COMPDAT.IN
+/
+
+INCLUDE
+INJWELLS.IN /
+
+INCLUDE 
+PRODWELLS.IN /
+
+TUNING 
+1 30 0.1/ 
+/
+12 1* 200/
+
+NSTACK
+60/
+
+TSTEP
+90/ 
+
+END
