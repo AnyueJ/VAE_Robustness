@@ -19,14 +19,23 @@ Due to the large size of data files, the data files (realizations and PCA basis)
 Please cite our paper if you find the codes useful
 
 @inproceedings{jiang2020history,
+
   title={History Matching under Uncertain Geologic Scenarios with Variational Autoencoders},
+  
   author={Jiang, A and Jafarpour, B},
+  
   booktitle={ECMOR XVII},
+  
   volume={2020},
+  
   number={1},
+  
   pages={1--14},
+  
   year={2020},
+  
   organization={European Association of Geoscientists \& Engineers}
+  
 }
 
 ## Acknowledgments
