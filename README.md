@@ -1,4 +1,5 @@
 # Deep Convolutional Autoencoders for Robust Flow Model Calibration under Uncertainty in Geologic Continuity
+We demonstrate the robustness of VAE handles diverse features and the effectness of combining VAE with gradient-based inversion.
 
 ## Prerequisites
 Python 3.6
